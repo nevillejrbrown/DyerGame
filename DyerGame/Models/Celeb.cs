@@ -5,13 +5,24 @@ using System.Threading.Tasks;
 
 namespace DyerGame.Models
 {
+
+    public enum CelebState
+    {
+        IN_HAT,
+        GUESSED,
+        BURNED
+    }
+
     public class Celeb
     {
-        public string Name { get; }
-        public CelebState State { get; private set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
 
-        public Celeb(string name)
+        public CelebState State { get; set; }
+
+        public Celeb(string name, int id = -1)
         {
+            this.Id = id;
             this.Name = name;
             State = CelebState.IN_HAT;
         }
@@ -37,6 +48,12 @@ namespace DyerGame.Models
                 throw new InvalidOperationException("Celeb must be GUESSED to be put back into hat");
             }
             this.State = CelebState.IN_HAT;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var celeb = obj as Celeb;
+            return celeb == null ? false : celeb.Id == this.Id;
         }
     }
 }

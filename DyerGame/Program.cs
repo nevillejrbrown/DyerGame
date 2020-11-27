@@ -16,6 +16,12 @@ namespace DyerGame
             CreateHostBuilder(args).Build().Run();
         }
 
+        private static void SetUpMockData()
+        {
+
+        }
+
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
