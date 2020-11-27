@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DyerGame", "DyerGame\DyerGame.csproj", "{BDC1DA68-F192-4501-AC7B-58C2B505A1F9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DyerGameTest", "DyerGameTest\DyerGameTest.csproj", "{C6EAD846-B56D-43C5-AC7D-84AFA90DE7EA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BDC1DA68-F192-4501-AC7B-58C2B505A1F9} = {BDC1DA68-F192-4501-AC7B-58C2B505A1F9}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{04C9C6AC-EF3C-4400-8EAD-B84EA562A230}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDC1DA68-F192-4501-AC7B-58C2B505A1F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDC1DA68-F192-4501-AC7B-58C2B505A1F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDC1DA68-F192-4501-AC7B-58C2B505A1F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDC1DA68-F192-4501-AC7B-58C2B505A1F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6EAD846-B56D-43C5-AC7D-84AFA90DE7EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6EAD846-B56D-43C5-AC7D-84AFA90DE7EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6EAD846-B56D-43C5-AC7D-84AFA90DE7EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6EAD846-B56D-43C5-AC7D-84AFA90DE7EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54ADB535-DB21-491F-ADB6-C176C3E2D98E}
+	EndGlobalSection
+EndGlobal
