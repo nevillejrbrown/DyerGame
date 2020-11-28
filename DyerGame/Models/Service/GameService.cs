@@ -2,22 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DyerGame.Models.Data;
 
-namespace DyerGame.Models
+namespace DyerGame.Models.Service
 {
-    public class GameService
+    public class GameService : IGameService
     {
+
+        private readonly ApplicationDbContext _context;
+
+        public GameService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         static class DataRepo
         {
             public static Game game;
-            static DataRepo() {
+            static DataRepo()
+            {
                 game = new Game();
                 game.AddCeleb(new Celeb("Danny Dyer", 67));
                 game.AddCeleb(new Celeb("Geoff Capes", 68));
                 game.AddCeleb(new Celeb("James Milner", 69));
             }
-
         }
 
         public Game GetGame(int Id)

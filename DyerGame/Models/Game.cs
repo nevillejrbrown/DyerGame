@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.EntityFrameworkCore.Metadata;
 namespace DyerGame.Models
 {
     public enum GameState
@@ -22,18 +23,19 @@ namespace DyerGame.Models
 
     public class Game
     {
-        public int ID { get; set; }
-        IList<Celeb> Celebs { get; set; }
+        public int GameId { get; set; }
+        public IList<Celeb> Celebs { get; set; }
 
         private static Random random = new Random();
 
-        public GameRound round;
+        public GameRound Round { get; set; }
+ 
 
         public void NextRound()  // TODO ADD TESTS
         {
-            if (this.round < GameRound.GAME_OVER)
+            if (Round < GameRound.GAME_OVER)
             {
-                this.round++;
+                Round++;
             }
             else throw new InvalidOperationException("Game is already over");
         }
@@ -41,7 +43,7 @@ namespace DyerGame.Models
         public Game()
         {
             this.Celebs = new List<Celeb>();
-            round = GameRound.DESCRIBE;
+            Round = GameRound.DESCRIBE;
         }
 
         public void AddCeleb(Celeb celeb)
@@ -49,6 +51,7 @@ namespace DyerGame.Models
             this.Celebs.Add(celeb);
         }
 
+        [NotMapped]
         public GameState State
         {
             get {
@@ -65,7 +68,7 @@ namespace DyerGame.Models
 
         public Celeb GetCeleb(int id)
         {
-            return Celebs.Where(c => c.Id == id).Single();
+            return Celebs.Where(c => c.CelebId == id).Single();
         }
 
         public IEnumerable<Celeb> CelebsInHat

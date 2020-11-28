@@ -15,14 +15,15 @@ namespace DyerGame.Models
 
     public class Celeb
     {
-        public int Id { get; set; }
+        public int CelebId { get; set; }
         public string Name { get; set; }
-
         public CelebState State { get; set; }
+        public Game Game { get; set; }
+        public int GameId { get; set; } 
 
-        public Celeb(string name, int id = -1)
+        public Celeb(string name, int id = 0)
         {
-            this.Id = id;
+            this.CelebId = id;
             this.Name = name;
             State = CelebState.IN_HAT;
         }
@@ -53,7 +54,12 @@ namespace DyerGame.Models
         public override bool Equals(object obj)
         {
             var celeb = obj as Celeb;
-            return celeb == null ? false : celeb.Id == this.Id;
+            return celeb == null ? false : celeb.CelebId == this.CelebId;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }
