@@ -27,10 +27,11 @@ namespace DyerGame
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));
             services.AddControllersWithViews();
             services.AddScoped<IGameService, GameService>();
-            services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
