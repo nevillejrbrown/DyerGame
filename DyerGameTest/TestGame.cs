@@ -95,11 +95,11 @@ namespace DyerGameTest
             bill.Burn();
             jake.Burn();
 
-            game.CelebsInHat.Count().Should().Be(0);
+            game.getCelebsInHat().Count().Should().Be(0);
 
             game.PutAllGuessedCelebsBackInHat();
 
-            game.CelebsInHat.Count().Should().Be(3);
+            game.getCelebsInHat().Count().Should().Be(3);
         }
 
         [TestMethod]

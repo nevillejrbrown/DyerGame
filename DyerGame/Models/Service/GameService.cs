@@ -40,7 +40,7 @@ namespace DyerGame.Models.Service
 
         public Celeb GetCeleb(int id)
         {
-            return DataRepo.game.GetCeleb(id);
+            return DataRepo.game.GetCelebById(id);
         }
 
         public void CelebGuessed(int celebId)

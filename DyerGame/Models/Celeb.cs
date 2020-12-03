@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,16 +16,17 @@ namespace DyerGame.Models
 
     public class Celeb
     {
-        public int CelebId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public CelebState State { get; set; }
         public Game Game { get; set; }
-        public int GameId { get; set; } 
+        public int GameId { get; set; }
 
-        public Celeb(string name, int id = 0)
+        public Celeb(string name, int Id= 0, int gameId=0)
         {
-            this.CelebId = id;
+            this.Id = Id;
             this.Name = name;
+            this.GameId = gameId;
             State = CelebState.IN_HAT;
         }
 
@@ -54,7 +56,7 @@ namespace DyerGame.Models
         public override bool Equals(object obj)
         {
             var celeb = obj as Celeb;
-            return celeb == null ? false : celeb.CelebId == this.CelebId;
+            return celeb == null ? false : celeb.Id == this.Id;
         }
 
         public override int GetHashCode()

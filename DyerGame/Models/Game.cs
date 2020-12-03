@@ -23,13 +23,12 @@ namespace DyerGame.Models
 
     public class Game
     {
-        public int GameId { get; set; }
-        public IList<Celeb> Celebs { get; set; }
+        public int Id { get; set; }
+        public ICollection<Celeb> Celebs { get; set; }
 
         private static Random random = new Random();
 
         public GameRound Round { get; set; }
- 
 
         public void NextRound()  // TODO ADD TESTS
         {
@@ -46,6 +45,7 @@ namespace DyerGame.Models
             Round = GameRound.DESCRIBE;
         }
 
+ 
         public void AddCeleb(Celeb celeb)
         {
             this.Celebs.Add(celeb);
@@ -61,34 +61,34 @@ namespace DyerGame.Models
 
         }
 
-        public Celeb GetCeleb(Celeb celeb)
+        //public Celeb GetCeleb(Celeb celeb)
+        //{
+        //    return Celebs.Where(c => celeb.Equals(c)).Single();
+        //}
+
+        public Celeb GetCelebById(int id)
         {
-            return Celebs.Where(c => celeb.Equals(c)).Single();
+            return Celebs.Where(c => c.Id == id).Single();
         }
 
-        public Celeb GetCeleb(int id)
+        public IEnumerable<Celeb> getCelebsInHat()
         {
-            return Celebs.Where(c => c.CelebId == id).Single();
+            return Celebs.Where(c => c.State == CelebState.IN_HAT);
         }
 
-        public IEnumerable<Celeb> CelebsInHat
+        public IEnumerable<Celeb> getGuessedCelebs()
         {
-            get => Celebs.Where(c => c.State == CelebState.IN_HAT);
-        }
-
-        public IEnumerable<Celeb> GuessedCelebs
-        {
-            get => Celebs.Where(c => c.State == CelebState.GUESSED);
+            return Celebs.Where(c => c.State == CelebState.GUESSED);
         }
 
         public Celeb GetRandomCelebFromHat()
         {
-            return CelebsInHat.GetRandom<Celeb>(random) ;
+            return getCelebsInHat().GetRandom<Celeb>(random) ;
         }
 
         public void PutAllGuessedCelebsBackInHat()
         {
-            foreach (Celeb celeb in GuessedCelebs)
+            foreach (Celeb celeb in getGuessedCelebs())
             {
                 celeb.PutBackIntoHat();
             }
