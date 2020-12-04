@@ -33,9 +33,11 @@ namespace DyerGame.Models.Service
             return DataRepo.game;
         }
 
-        public Game CreateGame()
+        public Game CreateGame(Game game)
         {
-            return new Game();
+            _context.Game.Add(game);
+            _context.SaveChanges();
+            return game;
         }
 
         public Celeb GetCeleb(int id)

@@ -45,6 +45,24 @@ namespace DyerGame.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult CreateNew([Bind("Name")] Game game)
+        {
+            _logger.LogDebug("New game created");
+            _gameService.CreateGame(game);
+
+            return View("ManageGame", game);
+
+        }
+
+        public IActionResult New()
+        {
+            _logger.LogDebug("New game selected");
+            return View("NewGame");
+        }
+
+        
+
         public IActionResult Next()
         {
             _logger.LogDebug($"Celeb has been guessed:");

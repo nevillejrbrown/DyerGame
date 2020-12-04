@@ -24,6 +24,7 @@ namespace DyerGame.Models
     public class Game
     {
         public int Id { get; set; }
+        public String Name { get; set; }
         public ICollection<Celeb> Celebs { get; set; }
 
         private static Random random = new Random();
