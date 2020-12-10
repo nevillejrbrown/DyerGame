@@ -27,6 +27,14 @@ namespace DyerGame
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                }).ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                    logging.AddDebug();
+                    logging.SetMinimumLevel(LogLevel.Debug);
+                })
+
+            ;
     }
 }

@@ -21,6 +21,39 @@ namespace DyerGame.Models
         GAME_OVER
     }
 
+    public static class FriendlyStringMethods
+    {
+        public static string StateString(this GameState state)
+        {
+            switch (state)
+            {
+                case GameState.ROUND_READY_TO_START: return "Read to start";
+                case GameState.ROUND_IN_PROGRESS: return "Round in progress";
+                case GameState.ROUND_COMPLETE: return "Round complete";
+                default: return "Unknown";
+            }
+        }
+
+        public static string GameRoundString(this GameRound round)
+        {
+            switch (round)
+            {
+                case GameRound.DESCRIBE: return "Describe";
+                case GameRound.DESCRIBE_3_WORDS: return "Describe in 3 words";
+                case GameRound.MIME: return "Mime";
+                case GameRound.GAME_OVER: return "Game over";
+                default: return "Unknown";
+            }
+        }
+    }
+
+    public class GameStats
+    {
+        public int NumberInHat { get; set; }
+        public int NumberGuessed { get; set; }
+        public int NumberBurned { get; set; }
+    }
+
     public class Game
     {
         public int Id { get; set; }
@@ -30,6 +63,16 @@ namespace DyerGame.Models
         private static Random random = new Random();
 
         public GameRound Round { get; set; }
+
+        public GameStats GetStats()
+        {
+            return new GameStats
+            {
+                NumberInHat = Celebs.Count(c => c.State == CelebState.IN_HAT),
+                NumberGuessed = Celebs.Count(c => c.State == CelebState.GUESSED),
+                NumberBurned = Celebs.Count(c => c.State == CelebState.BURNED)
+            };
+        }
 
         public void NextRound()  // TODO ADD TESTS
         {
@@ -61,11 +104,6 @@ namespace DyerGame.Models
             }
 
         }
-
-        //public Celeb GetCeleb(Celeb celeb)
-        //{
-        //    return Celebs.Where(c => celeb.Equals(c)).Single();
-        //}
 
         public Celeb GetCelebById(int id)
         {

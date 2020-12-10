@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Manage games";
+}
+
+@model DyerGame.Models.Game
+
+<div>
+    <h2>Manage game @Model.Name</h2>
+    <div>In hat: @Model.GetStats().NumberInHat</div>
+    <div>Guessed: @Model.GetStats().NumberGuessed</div>
+    <div>Burned: @Model.GetStats().NumberBurned</div>
+</div>
+
+<div>
+    <a asp-action="EnterCelebs" asp-route-id="@Model.Id">Add Celebs</a>
+    <a asp-action="Game/PlayGame" asp-route-id="@Model.Id">Play game</a>
+    <a asp-action="New">New Game</a>
+</div>
+

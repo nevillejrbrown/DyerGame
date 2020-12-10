@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DyerGame.Models.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DyerGame.Models.Service
 {
@@ -16,21 +17,11 @@ namespace DyerGame.Models.Service
             _context = context;
         }
 
-        static class DataRepo
-        {
-            public static Game game;
-            static DataRepo()
-            {
-                game = new Game();
-                game.AddCeleb(new Celeb("Danny Dyer", 67));
-                game.AddCeleb(new Celeb("Geoff Capes", 68));
-                game.AddCeleb(new Celeb("James Milner", 69));
-            }
-        }
 
-        public Game GetGame(int Id)
+        public Game GetGameById(int Id)
         {
-            return DataRepo.game;
+            //_context.Game.;
+            return _context.Game.Include(game => game.Celebs).Single(g => g.Id == Id);
         }
 
         public Game CreateGame(Game game)
@@ -40,14 +31,31 @@ namespace DyerGame.Models.Service
             return game;
         }
 
-        public Celeb GetCeleb(int id)
+        public Game GetGameByCelebId(int CelebId)
         {
-            return DataRepo.game.GetCelebById(id);
+            Celeb celeb = _context.Celeb.Single(c => c.Id == CelebId);
+            return _context.Game.Single(g => g.Id == celeb.GameId);
         }
+
 
         public void CelebGuessed(int celebId)
         {
-            GetCeleb(celebId).Guess();
+            Celeb celeb = _context.Celeb.Single(c => c.Id == celebId);
+            celeb.Guess();
+            _context.Celeb.Update(celeb);
+            _context.SaveChanges();
+        }
+
+        public Celeb AddCeleb(Celeb celeb)
+        {
+            _context.Celeb.Add(celeb);
+            _context.SaveChanges();
+            return celeb;
+        }
+
+        Celeb IGameService.GetCeleb(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

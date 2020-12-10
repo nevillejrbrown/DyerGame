@@ -30,6 +30,11 @@ namespace DyerGame.Models
             State = CelebState.IN_HAT;
         }
 
+        public Celeb()
+        {
+
+        }
+
         public void Burn()
         {
             this.State = CelebState.BURNED;

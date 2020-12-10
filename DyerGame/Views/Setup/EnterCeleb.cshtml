@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Add celeb";
+}
+
+@model DyerGame.Views.Setup.AddCelebPageModel
+
+<h2>Manage game @Model.ThisGame.Name</h2>
+
+<form asp-action="AddNewCeleb">
+    <input type="hidden" id="GameId" name="Celeb.GameId" value="@Model.ThisGame.Id" />
+    <div class="form-group">
+        <label asp-for="Celeb.Name" class="control-label"></label>
+        <input asp-for="Celeb.Name" class="form-control" />
+        <span asp-validation-for="Celeb.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add Celeb" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <div>In hat: @Model.ThisGame.GetStats().NumberInHat</div>
+    <div>Guessed: @Model.ThisGame.GetStats().NumberGuessed</div>
+    <div>Burned: @Model.ThisGame.GetStats().NumberBurned</div>
+</div>
+
+<div>
+    <a asp-action="AddCelebs" asp-route-id="@Model.ThisGame.Id">Add Celebs</a>
+    <a asp-action="ManageGame" asp-route-id="@Model.ThisGame.Id">Manage Game</a>
+    <a asp-action="New">New Game</a>
+</div>
+

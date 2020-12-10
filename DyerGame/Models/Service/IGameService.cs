@@ -5,6 +5,8 @@
         void CelebGuessed(int celebId);
         Game CreateGame(Game game);
         Celeb GetCeleb(int id);
-        Game GetGame(int Id);
+        Game GetGameById(int Id);
+        Game GetGameByCelebId(int CelebId);
+        public Celeb AddCeleb(Celeb celeb);
     }
 }

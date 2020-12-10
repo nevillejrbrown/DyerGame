@@ -26,7 +26,7 @@ namespace DyerGame.Controllers
         public IActionResult RandomCeleb(int ID)
         {
             _logger.LogDebug($"Random celeb requested for ID {ID}");
-            return View(_gameService.GetGame(ID).GetRandomCelebFromHat());
+            return View(_gameService.GetGameById(ID).GetRandomCelebFromHat());
         }
 
         public IActionResult Guessed(int ID)
@@ -35,9 +35,11 @@ namespace DyerGame.Controllers
 
             _gameService.CelebGuessed(ID);
 
-            if (_gameService.GetGame(1).State == GameState.ROUND_IN_PROGRESS) 
+            Game relatedGame = _gameService.GetGameByCelebId(ID);
+
+            if (relatedGame.State == GameState.ROUND_IN_PROGRESS)
             {
-                return View("RandomCeleb", _gameService.GetGame(1).GetRandomCelebFromHat());
+                return View("RandomCeleb", relatedGame.GetRandomCelebFromHat());
             }
             else
             {
@@ -45,28 +47,12 @@ namespace DyerGame.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult CreateNew([Bind("Name")] Game game)
-        {
-            _logger.LogDebug("New game created");
-            _gameService.CreateGame(game);
-
-            return View("ManageGame", game);
-
-        }
-
-        public IActionResult New()
-        {
-            _logger.LogDebug("New game selected");
-            return View("NewGame");
-        }
-
-        
+ 
 
         public IActionResult Next()
         {
-            _logger.LogDebug($"Celeb has been guessed:");
-            return View("RandomCeleb", _gameService.GetGame(1).GetRandomCelebFromHat());
+            _logger.LogDebug($"Celeb has been chucked back in:");
+            return View("RandomCeleb", _gameService.GetGameById(1).GetRandomCelebFromHat());
         }
     }
 }
