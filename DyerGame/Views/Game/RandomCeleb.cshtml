@@ -2,13 +2,19 @@
     ViewData["Title"] = "Guess the celeb";
 }
 
-@model DyerGame.Models.Celeb;
+@model DyerGame.Views.CelebAndGamePageModel
 
-<h2>@Html.DisplayFor(model => model.Name)</h2>
+<h2>@Html.DisplayFor(model => model.Celeb.Name)</h2>
 
 <div>
-    <a asp-action="Guessed" asp-route-id="@Model.Id">Guessed</a> |
-    <a asp-action="Burn" asp-route-id="@Model.Id">Burn</a> |
-    <a asp-action="Next" >Next</a> |
+    <a asp-action="Guessed" asp-controller="Game" asp-route-id="@Model.Celeb.Id">Guessed</a> |
+    <a asp-action="Burn" asp-controller="Game" asp-route-id="@Model.Celeb.Id">Burn</a> |
+    <a asp-action="RandomCeleb" asp-controller="Game" asp-route-id="@Model.ThisGame.Id">Next</a> |
+</div>
+
+<div>
+<div>In hat: @Model.ThisGame.GetStats().NumberInHat</div>
+<div>Guessed: @Model.ThisGame.GetStats().NumberGuessed</div>
+<div>Burned: @Model.ThisGame.GetStats().NumberBurned</div>
 </div>
 

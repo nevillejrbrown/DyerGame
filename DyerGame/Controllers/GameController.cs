@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using DyerGame.Models;
 using Microsoft.Extensions.Logging;
 using DyerGame.Models.Service;
+using DyerGame.Views;
+
 namespace DyerGame.Controllers
 {
     public class GameController : Controller
@@ -23,10 +25,17 @@ namespace DyerGame.Controllers
             return View();
         }
 
+
         public IActionResult RandomCeleb(int ID)
         {
             _logger.LogDebug($"Random celeb requested for ID {ID}");
-            return View(_gameService.GetGameById(ID).GetRandomCelebFromHat());
+            Game game = _gameService.GetGameById(ID);
+            var model = new CelebAndGamePageModel
+            {
+                ThisGame = game,
+                Celeb = game.GetRandomCelebFromHat()
+            };
+            return View(model);
         }
 
         public IActionResult Guessed(int ID)
@@ -39,7 +48,12 @@ namespace DyerGame.Controllers
 
             if (relatedGame.State == GameState.ROUND_IN_PROGRESS)
             {
-                return View("RandomCeleb", relatedGame.GetRandomCelebFromHat());
+                var model = new CelebAndGamePageModel
+                {
+                    ThisGame = relatedGame,
+                    Celeb = relatedGame.GetRandomCelebFromHat()
+                };
+                return View("RandomCeleb", model);
             }
             else
             {
@@ -49,10 +63,33 @@ namespace DyerGame.Controllers
 
  
 
-        public IActionResult Next()
+        public IActionResult Next(int ID)
         {
-            _logger.LogDebug($"Celeb has been chucked back in:");
-            return View("RandomCeleb", _gameService.GetGameById(1).GetRandomCelebFromHat());
+            return RandomCeleb(ID);
+        }
+
+
+        public IActionResult Burn(int ID)
+        {
+            _logger.LogDebug($"Celeb has been burned: {ID}");
+
+            _gameService.CelebBurned(ID);
+
+            Game relatedGame = _gameService.GetGameByCelebId(ID);
+
+            if (relatedGame.State == GameState.ROUND_IN_PROGRESS)
+            {
+                var model = new CelebAndGamePageModel
+                {
+                    ThisGame = relatedGame,
+                    Celeb = relatedGame.GetRandomCelebFromHat()
+                };
+                return View("RandomCeleb", model);
+            }
+            else
+            {
+                return View("FinishedRound");
+            }
         }
     }
 }

@@ -21,7 +21,8 @@ namespace DyerGame.Models.Service
         public Game GetGameById(int Id)
         {
             //_context.Game.;
-            return _context.Game.Include(game => game.Celebs).Single(g => g.Id == Id);
+            return _context.Game.Include(game => game.Celebs)
+                                .Single(g => g.Id == Id);
         }
 
         public Game CreateGame(Game game)
@@ -34,7 +35,8 @@ namespace DyerGame.Models.Service
         public Game GetGameByCelebId(int CelebId)
         {
             Celeb celeb = _context.Celeb.Single(c => c.Id == CelebId);
-            return _context.Game.Single(g => g.Id == celeb.GameId);
+            return _context.Game.Include(g => g.Celebs)
+                                .Single(g => g.Id == celeb.GameId);
         }
 
 
@@ -42,6 +44,14 @@ namespace DyerGame.Models.Service
         {
             Celeb celeb = _context.Celeb.Single(c => c.Id == celebId);
             celeb.Guess();
+            _context.Celeb.Update(celeb);
+            _context.SaveChanges();
+        }
+
+        public void CelebBurned(int celebId)
+        {
+            Celeb celeb = _context.Celeb.Single(c => c.Id == celebId);
+            celeb.Burn();
             _context.Celeb.Update(celeb);
             _context.SaveChanges();
         }

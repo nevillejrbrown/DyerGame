@@ -13,7 +13,7 @@
 
 <div>
     <a asp-action="EnterCelebs" asp-route-id="@Model.Id">Add Celebs</a>
-    <a asp-action="Game/PlayGame" asp-route-id="@Model.Id">Play game</a>
+    <a asp-action="RandomCeleb" asp-controller="Game" asp-route-id="@Model.Id">Play game</a>
     <a asp-action="New">New Game</a>
 </div>
 

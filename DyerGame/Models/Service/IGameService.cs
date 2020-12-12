@@ -7,6 +7,7 @@
         Celeb GetCeleb(int id);
         Game GetGameById(int Id);
         Game GetGameByCelebId(int CelebId);
-        public Celeb AddCeleb(Celeb celeb);
+        Celeb AddCeleb(Celeb celeb);
+        void CelebBurned(int celebId);
     }
 }

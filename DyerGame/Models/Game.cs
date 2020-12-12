@@ -100,7 +100,7 @@ namespace DyerGame.Models
         {
             get {
                 if (Celebs.All(c => c.State == CelebState.IN_HAT)) return GameState.ROUND_READY_TO_START;
-                return Celebs.All(c => c.State == CelebState.GUESSED) ? GameState.ROUND_COMPLETE : GameState.ROUND_IN_PROGRESS;
+                return Celebs.All(c => c.State != CelebState.IN_HAT) ? GameState.ROUND_COMPLETE : GameState.ROUND_IN_PROGRESS;
             }
 
         }

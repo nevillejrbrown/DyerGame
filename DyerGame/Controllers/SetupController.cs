@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using DyerGame.Models;
 using Microsoft.Extensions.Logging;
 using DyerGame.Models.Service;
-using DyerGame.Views.Setup;
+using DyerGame.Views;
 
 namespace DyerGame.Controllers
 {
@@ -50,7 +50,7 @@ namespace DyerGame.Controllers
         {
             _logger.LogDebug($"Going to add celebs page for game {ID}");
             Game game = _gameService.GetGameById(ID);
-            AddCelebPageModel pageModel = new AddCelebPageModel
+            CelebAndGamePageModel pageModel = new CelebAndGamePageModel
             {
                 ThisGame = game,
                 Celeb = new Celeb()
@@ -58,12 +58,12 @@ namespace DyerGame.Controllers
             return View("EnterCeleb", pageModel);
         }
 
-        public IActionResult AddNewCeleb(AddCelebPageModel pageModel)
+        public IActionResult AddNewCeleb(CelebAndGamePageModel pageModel)
         {
             _logger.LogDebug($"Adding celeb {pageModel.Celeb.Name} to game {pageModel.Celeb.GameId}");
             var savedCeleb = _gameService.AddCeleb(pageModel.Celeb);
 
-            AddCelebPageModel newPageModel = new AddCelebPageModel
+            CelebAndGamePageModel newPageModel = new CelebAndGamePageModel
             {
                 ThisGame = _gameService.GetGameById(savedCeleb.GameId),
                 Celeb = new Celeb()

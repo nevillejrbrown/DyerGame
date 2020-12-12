@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DyerGame.Models;
-namespace DyerGame.Views.Setup
+namespace DyerGame.Views
 
 {
-    public class AddCelebPageModel
+    public class CelebAndGamePageModel
     {
         public Celeb Celeb { get; set; }
 
