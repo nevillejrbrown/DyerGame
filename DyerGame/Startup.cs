@@ -11,7 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DyerGame.Models.Data;
 using Microsoft.EntityFrameworkCore;
-
+using DyerGame.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace DyerGame
 {
@@ -27,6 +28,14 @@ namespace DyerGame
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<IdentityContext>(options =>
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("ApplicationDbContext")));
+
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<IdentityContext>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));
             services.AddControllersWithViews();
@@ -35,8 +44,10 @@ namespace DyerGame
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dataContext, IdentityContext identityContext)
         {
+            dataContext.Database.Migrate();
+            identityContext.Database.Migrate();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
