@@ -69,38 +69,7 @@ namespace DyerGameTest
             jake.Guess();
             game.GetRandomCelebFromHat().Should().Be(bill);
         }
-        [TestMethod]
-        public void TestPutGuessedCelebsBackInHat()
-        {
-            Game game = new Game();
-            
-            var geezer = new Celeb("Danny Dyer");
-            game.AddCeleb(geezer);
 
-            var geoff = new Celeb("Geoff Capes");
-            game.AddCeleb(geoff);
-
-            var john = new Celeb("John Peel");
-            game.AddCeleb(john);
-
-            var bill = new Celeb("Bill Bailey");
-            game.AddCeleb(bill);
-
-            var jake = new Celeb("Jake Gyllenhaal");
-            game.AddCeleb(jake);
-
-            geezer.Guess();
-            geoff.Guess();
-            john.Guess();
-            bill.Burn();
-            jake.Burn();
-
-            game.getCelebsInHat().Count().Should().Be(0);
-
-            game.PutAllGuessedCelebsBackInHat();
-
-            game.getCelebsInHat().Count().Should().Be(3);
-        }
 
         [TestMethod]
         public void TestGetNullBackIfNoneInHat()
