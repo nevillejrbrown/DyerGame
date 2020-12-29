@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata;
 namespace DyerGame.Models
 {
-    public enum GameState
+    public enum RoundState
     {
         ROUND_READY_TO_START,
         ROUND_IN_PROGRESS,
@@ -23,13 +23,13 @@ namespace DyerGame.Models
 
     public static class FriendlyStringMethods
     {
-        public static string StateString(this GameState state)
+        public static string StateString(this RoundState state)
         {
             switch (state)
             {
-                case GameState.ROUND_READY_TO_START: return "Read to start";
-                case GameState.ROUND_IN_PROGRESS: return "Round in progress";
-                case GameState.ROUND_COMPLETE: return "Round complete";
+                case RoundState.ROUND_READY_TO_START: return "Read to start";
+                case RoundState.ROUND_IN_PROGRESS: return "Round in progress";
+                case RoundState.ROUND_COMPLETE: return "Round complete";
                 default: return "Unknown";
             }
         }
@@ -74,7 +74,7 @@ namespace DyerGame.Models
             };
         }
 
-        public void NextRound()  // TODO ADD TESTS
+        public void NextRound()  
         {
             if (Round < GameRound.GAME_OVER)
             {
@@ -96,11 +96,11 @@ namespace DyerGame.Models
         }
 
         [NotMapped]
-        public GameState State
+        public RoundState State
         {
             get {
-                if (Celebs.All(c => c.State == CelebState.IN_HAT)) return GameState.ROUND_READY_TO_START;
-                return Celebs.All(c => c.State != CelebState.IN_HAT) ? GameState.ROUND_COMPLETE : GameState.ROUND_IN_PROGRESS;
+                if (Celebs.All(c => c.State == CelebState.IN_HAT)) return RoundState.ROUND_READY_TO_START;
+                return Celebs.All(c => c.State != CelebState.IN_HAT) ? RoundState.ROUND_COMPLETE : RoundState.ROUND_IN_PROGRESS;
             }
 
         }
@@ -125,13 +125,7 @@ namespace DyerGame.Models
             return getCelebsInHat().GetRandom<Celeb>(random) ;
         }
 
-        public void PutAllGuessedCelebsBackInHat()
-        {
-            foreach (Celeb celeb in getGuessedCelebs())
-            {
-                celeb.PutBackIntoHat();
-            }
-        }
+
 
     }
 

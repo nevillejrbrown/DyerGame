@@ -19,7 +19,7 @@ namespace DyerGameTest
             Game game = new Game();
             game.AddCeleb(new Celeb("Danny Dyer"));
             game.AddCeleb(new Celeb("Geoff Capes"));
-            game.State.Should().Be(GameState.ROUND_READY_TO_START);
+            game.State.Should().Be(RoundState.ROUND_READY_TO_START);
         }
 
         [TestMethod]
@@ -29,9 +29,9 @@ namespace DyerGameTest
             var geezer = new Celeb("Danny Dyer");
             game.AddCeleb(geezer);
             game.AddCeleb(new Celeb("Geoff Capes"));
-            game.State.Should().Be(GameState.ROUND_READY_TO_START);
+            game.State.Should().Be(RoundState.ROUND_READY_TO_START);
             geezer.Guess();
-            game.State.Should().Be(GameState.ROUND_IN_PROGRESS);
+            game.State.Should().Be(RoundState.ROUND_IN_PROGRESS);
         }
         
         [TestMethod]
@@ -42,10 +42,10 @@ namespace DyerGameTest
             game.AddCeleb(geezer);
             var geoff= new Celeb("Geoff Capes");
             game.AddCeleb(geoff);
-            game.State.Should().Be(GameState.ROUND_READY_TO_START);
+            game.State.Should().Be(RoundState.ROUND_READY_TO_START);
             geezer.Guess();
             geoff.Guess();
-            game.State.Should().Be(GameState.ROUND_COMPLETE);
+            game.State.Should().Be(RoundState.ROUND_COMPLETE);
         }
 
 

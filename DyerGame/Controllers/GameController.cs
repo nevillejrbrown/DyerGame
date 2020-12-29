@@ -26,6 +26,18 @@ namespace DyerGame.Controllers
         }
 
 
+        public IActionResult NextRound(int ID)
+        {
+            _logger.LogDebug($"Moving to next round for ID {ID}");
+            Game game = _gameService.MoveGameToNextRound(ID);
+            var model = new CelebAndGamePageModel
+            {
+                ThisGame = game,
+                Celeb = game.GetRandomCelebFromHat()
+            };
+            return View("RandomCeleb", model);
+        }
+
         public IActionResult RandomCeleb(int ID)
         {
             _logger.LogDebug($"Random celeb requested for ID {ID}");
@@ -35,7 +47,7 @@ namespace DyerGame.Controllers
                 ThisGame = game,
                 Celeb = game.GetRandomCelebFromHat()
             };
-            return View(model);
+            return View("RandomCeleb", model);
         }
 
         public IActionResult Guessed(int ID)
@@ -46,7 +58,7 @@ namespace DyerGame.Controllers
 
             Game relatedGame = _gameService.GetGameByCelebId(ID);
 
-            if (relatedGame.State == GameState.ROUND_IN_PROGRESS)
+            if (relatedGame.State == RoundState.ROUND_IN_PROGRESS)
             {
                 var model = new CelebAndGamePageModel
                 {
@@ -57,7 +69,7 @@ namespace DyerGame.Controllers
             }
             else
             {
-                return View("FinishedRound");
+                return View("FinishedRound",relatedGame);
             }
         }
 
@@ -77,7 +89,7 @@ namespace DyerGame.Controllers
 
             Game relatedGame = _gameService.GetGameByCelebId(ID);
 
-            if (relatedGame.State == GameState.ROUND_IN_PROGRESS)
+            if (relatedGame.State == RoundState.ROUND_IN_PROGRESS)
             {
                 var model = new CelebAndGamePageModel
                 {

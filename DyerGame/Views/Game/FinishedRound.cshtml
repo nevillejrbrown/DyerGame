@@ -1,1 +1,18 @@
-﻿<h2>FINISHED ROUND </h2> 
+﻿@{
+    ViewData["Title"] = "End of round";
+}
+
+@model DyerGame.Models.Game
+
+@if (Model.Round != GameRound.MIME)
+{
+    <h2>End of round</h2>
+    <div>
+        <a asp-action="NextRound" asp-controller="Game" asp-route-id="@Model.Id">Play next round!</a>
+    </div>
+}
+else
+{
+    <h2>Thank you for playing the Danny Dyer Game!</h2>
+
+}

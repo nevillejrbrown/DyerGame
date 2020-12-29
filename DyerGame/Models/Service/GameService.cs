@@ -17,10 +17,27 @@ namespace DyerGame.Models.Service
             _context = context;
         }
 
+        private void PutAllGuessedCelebsBackInHat(Game game)
+        {
+            foreach (Celeb celeb in game.getGuessedCelebs())
+            {
+                celeb.PutBackIntoHat();
+                //_context.Celeb.Update(celeb);
+            }
+        }
+
+        public Game MoveGameToNextRound(int GameID)
+        {
+            Game game = GetGameById(GameID);
+            PutAllGuessedCelebsBackInHat(game);
+            game.NextRound();
+            _context.Game.Update(game);
+            _context.SaveChanges();
+            return game;
+        }
 
         public Game GetGameById(int Id)
         {
-            //_context.Game.;
             return _context.Game.Include(game => game.Celebs)
                                 .Single(g => g.Id == Id);
         }

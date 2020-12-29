@@ -9,5 +9,6 @@
         Game GetGameByCelebId(int CelebId);
         Celeb AddCeleb(Celeb celeb);
         void CelebBurned(int celebId);
+        Game MoveGameToNextRound(int GameID);
     }
 }
