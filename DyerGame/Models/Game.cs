@@ -38,9 +38,9 @@ namespace DyerGame.Models
         {
             switch (round)
             {
-                case GameRound.DESCRIBE: return "Describe";
-                case GameRound.DESCRIBE_3_WORDS: return "Describe in 3 words";
-                case GameRound.MIME: return "Mime";
+                case GameRound.DESCRIBE: return "Describe...";
+                case GameRound.DESCRIBE_3_WORDS: return "Describe in 3 words...";
+                case GameRound.MIME: return "Mime...";
                 case GameRound.GAME_OVER: return "Game over";
                 default: return "Unknown";
             }

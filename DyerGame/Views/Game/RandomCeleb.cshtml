@@ -3,7 +3,7 @@
 }
 
 @model DyerGame.Views.CelebAndGamePageModel
-
+<h3>@Model.ThisGame.Round.GameRoundString()</h3>
 <h2>@Html.DisplayFor(model => model.Celeb.Name)</h2>
 
 <div>
